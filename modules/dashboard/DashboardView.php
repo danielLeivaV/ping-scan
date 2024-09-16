@@ -10,20 +10,24 @@
 </head>
 
 <body>
-    <h2>Bienvenido, <?php echo htmlspecialchars($nombre); ?>!</h2>
+    <h2>Bienvenido, <?php echo htmlspecialchars($user->nombre); ?>!</h2>
+    <div class="accesos-rapidos">
+        <h3>Accesos Rápidos</h3>
+        
     <div class="accesos-Administrador">
     
-    <?php if ($rol === 'admin'): ?>
+    <?php if ($user->rol === 'admin'):?>
                 <h3>Opciones de Administrador</h3>
                 <ul>
                 <li><a href="../seguridad_autenticacion/view.php">Gestión de Usuarios</a></li>
                 </ul>
             <?php endif; ?>
     </div>
-    <div class="accesos-rapidos">
-        <h3>Accesos Rápidos</h3>
-        <ul>
+    <?php if ($user->rol === 'admin' || $user->rol === 'tec' ): ?>
+            <ul>
             <li><a href="gestion_dispositivos.php">Gestión de Dispositivos</a></li>
+            <?php endif; ?>
+
             <li><a href="informes.php">Informes Históricos</a></li>
         </ul>
     </div>
@@ -32,6 +36,8 @@
         <button type="submit">Cerrar Sesión</button>
     </form>
 
+
+    
 
 </body>
 

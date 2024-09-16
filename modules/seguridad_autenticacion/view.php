@@ -3,9 +3,10 @@ require '../../config/conectar.php';
 require 'controller.php';
 
 session_start();
+$user = json_decode(json_encode($_SESSION['user']));
 
 // Verificar si el usuario es administrador
-if (!isset($_SESSION['nombre']) || $_SESSION['rol'] !== 'admin') {
+if (!isset($_SESSION['user']) || $user->rol !== 'admin') {
     header("Location: login.php");
     exit();
 }
@@ -59,6 +60,7 @@ $users = $controller->getAllUsers();
         <label for="role">Rol:</label>
         <select id="role" name="role" required>
             <option value="admin">Administrador</option>
+            <option value="tec">Tecnico</option>
             <option value="user">Usuario</option>
         </select>
         <br>

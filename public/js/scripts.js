@@ -1,4 +1,3 @@
-// Función que manejará el envío del formulario
 function login(event) {
     event.preventDefault(); // Evitar el envío estándar del formulario
     

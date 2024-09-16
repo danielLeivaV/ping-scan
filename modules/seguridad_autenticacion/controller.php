@@ -13,7 +13,7 @@ class UserController {
     }
 
     public function logout() {
-        session_start();  // Inicia la sesión
+        // session_start();  // Inicia la sesión
         session_destroy(); // Destruye la sesión
         header("Location: ../../public/login.php"); // Redirige al index.php
         exit(); // Asegura que se detiene la ejecución
@@ -88,12 +88,16 @@ class UserController {
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
+        $userResult = $result->fetch_assoc();
 
-        if ($user && password_verify($password, $user['contrasena'])) {
-            $_SESSION['id_usuarios'] = $user['id_usuarios'];
-            $_SESSION['rol'] = $user['rol'];
-            $_SESSION['nombre'] = $user['nombre']; 
+        if ($userResult && password_verify($password, $userResult['contrasena'])) {
+            session_start();
+            $_SESSION['user'] = array(
+                'id' => $userResult['id_usuarios'],
+                //'userName' => $username,
+                'nombre' => $userResult['nombre'],
+                'rol' => $userResult['rol'],
+            );
             return true;
         } else {
             return false;

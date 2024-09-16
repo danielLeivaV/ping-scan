@@ -2,8 +2,6 @@
 require '../config/conectar.php';
 require '../modules/seguridad_autenticacion/controller.php';
 
-session_start();
-
 // Crear una instancia de la clase Conectar y obtener la conexión
 $conexion = new Conectar();
 $conn = $conexion->getConexion();
@@ -18,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header('Content-Type: application/json'); // Indicar que la respuesta es JSON
 
     if ($controller->login($username, $password)) {
-        $_SESSION['username'] = $username;
         echo json_encode(['success' => true, 'message' => 'Inicio de sesión exitoso', 'redirect' => '../modules/dashboard/DashboardView.php']);
     } else {
         echo json_encode(['success' => false, 'message' => 'Nombre de usuario o contraseña incorrectos.']);
@@ -33,9 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="js/scripts.js"></script> <!-- Enlace a scripts.js -->
-    
+    <link rel="stylesheet" href="css/styles.css">    
 </head>
 <body>
     <div id="error-message" style="color: red;"></div> <!-- Mostrar mensaje de error aquí -->
@@ -48,4 +43,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <button type="submit">Iniciar Sesión</button>
     </form>
 </body>
+<script src="js/scripts.js"></script> <!-- Enlace a scripts.js -->
 </html>

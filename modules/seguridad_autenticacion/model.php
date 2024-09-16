@@ -8,7 +8,7 @@ class UserModel {
 
     public function addUser($username, $password, $role) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->conn->prepare("INSERT INTO usuarios (username, password, role) VALUES (?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO usuarios (nombre, contrasena, rol) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $username, $hashedPassword, $role);
         return $stmt->execute();
        

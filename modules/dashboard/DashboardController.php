@@ -11,9 +11,13 @@ $conn = $conexion->getConexion();
 // Crear una instancia del controlador de usuario
 $controller = new UserController($conn);
 
-if (!isset($_SESSION['nombre'])) {
+if (!isset($_SESSION['user'])) {
     header("Location: ../../public/login.php");
     exit();
+}
+else{
+    // Enviar los datos necesarios a la vista
+    $user = json_decode(json_encode($_SESSION['user']));
 }
 
 // Si es una solicitud para cerrar sesión
@@ -22,10 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
    /* header("Location: ../seguridad_autenticacion/login.php");
     exit();*/
 }
-
-// Enviar los datos necesarios a la vista
-$nombre = $_SESSION['nombre'];
-$rol = $_SESSION['rol'];
 
 require_once 'DashboardView.php';
 ?>
